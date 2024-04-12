@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:expense_tracker/helpers/date_formatter.dart';
 import 'package:intl/intl.dart';
 
-final formatter = DateFormat(Intl.defaultLocale);
+final formatter = DateFormat('dd/MM/yyyy');
 
 const uuid = Uuid();
 enum Category {food, leisure, travel, work}
