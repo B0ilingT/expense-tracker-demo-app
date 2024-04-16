@@ -70,7 +70,9 @@ class _ExpensesState extends State<Expenses> {
 
     if (_registeredExpenses.isNotEmpty) {
       mainContent = ExpensesList(
-          listExpenses: _registeredExpenses, onRemoveExpense: _removeExpense);
+          listExpenses: _registeredExpenses, 
+          onRemoveExpense: _removeExpense
+        );
     }
 
     return Scaffold(
@@ -90,7 +92,9 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(children: [
         const Text("The chart"),
-        Expanded(child: mainContent),
+        Expanded(
+          child: mainContent, 
+        ),
       ]),
     );
   }
