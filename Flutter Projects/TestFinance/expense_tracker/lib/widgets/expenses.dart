@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
@@ -48,19 +49,16 @@ class _ExpensesState extends State<Expenses> {
       _registeredExpenses.remove(expense);
     });
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text("Expense Deleted"),
         duration: const Duration(seconds: 2),
-        action: SnackBarAction(label: 'Undo', 
-          onPressed: () {
-            setState(() {
-              _registeredExpenses.insert(expenseIndex, expense);
-            });
-          }
-        )
-      )
-    );
+        action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              setState(() {
+                _registeredExpenses.insert(expenseIndex, expense);
+              });
+            })));
   }
 
   @override
@@ -70,9 +68,7 @@ class _ExpensesState extends State<Expenses> {
 
     if (_registeredExpenses.isNotEmpty) {
       mainContent = ExpensesList(
-          listExpenses: _registeredExpenses, 
-          onRemoveExpense: _removeExpense
-        );
+          listExpenses: _registeredExpenses, onRemoveExpense: _removeExpense);
     }
 
     return Scaffold(
@@ -91,9 +87,15 @@ class _ExpensesState extends State<Expenses> {
         ],
       ),
       body: Column(children: [
-        const Text("The chart"),
+        Container(
+            margin: const EdgeInsets.fromLTRB(16, 24, 16, 32),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Theme.of(context).cardTheme.color,
+            ),
+            child: Chart(expenses: _registeredExpenses)),
         Expanded(
-          child: mainContent, 
+          child: mainContent,
         ),
       ]),
     );
