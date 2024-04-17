@@ -115,7 +115,17 @@ class _NewExpenseState extends State<NewExpense> {
               controller: _titleController,
               enableSuggestions: true,
               maxLength: 50,
-              decoration: const InputDecoration(label: Text("Title:")),
+              decoration: InputDecoration(
+                label: Text(
+                  "Title:",
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.labelMedium!.color 
+                  )
+                ),
+                helperStyle: TextStyle(
+                  color: Theme.of(context).textTheme.labelMedium!.color 
+                )
+              ),
             ),
             Row(
               children: [
@@ -126,8 +136,18 @@ class _NewExpenseState extends State<NewExpense> {
                       decimal: true,
                     ),
                     maxLength: 50,
-                    decoration: const InputDecoration(
-                        label: Text("Amount:"), prefixText: "£ "),
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Amount:",
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.labelMedium!.color 
+                        ) 
+                      ), 
+                      helperStyle: TextStyle(
+                        color: Theme.of(context).textTheme.labelMedium!.color 
+                      ),
+                      prefixText: "£ "
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -136,9 +156,12 @@ class _NewExpenseState extends State<NewExpense> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(_selectedDate == null
+                      Text(
+                        _selectedDate == null
                           ? "Please Select a Date"
-                          : formatter.format(_selectedDate!)),
+                          : formatter.format(_selectedDate!),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                       IconButton(
                           onPressed: _presentDatePicker,
                           icon: const Icon(Icons.calendar_month))
@@ -150,11 +173,14 @@ class _NewExpenseState extends State<NewExpense> {
             const SizedBox(height: 16),
             Row(children: [
               DropdownButton(
+                  style: Theme.of(context).textTheme.labelMedium,
                   value: _selectedCategory,
                   items: Category.values
                       .map((catergory) => DropdownMenuItem(
                           value: catergory,
-                          child: Text(catergory.name.toString().toUpperCase())))
+                          child: Text(
+                            catergory.name.toString().toUpperCase()
+                          )))
                       .toList(),
                   onChanged: (value) {
                     if (value == null) {
@@ -169,7 +195,13 @@ class _NewExpenseState extends State<NewExpense> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Cancel")),
+                  child: Text(
+                    "Cancel", 
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.labelMedium!.color 
+                    ) 
+                  )
+                ),
               ElevatedButton(
                 onPressed: () {
                   _submitExpenseData();
@@ -181,7 +213,10 @@ class _NewExpenseState extends State<NewExpense> {
                   }
                   print("Date: " + formatter.format(_selectedDate!));
                 },
-                child: const Text('Save Expense'),
+                child: const Text(
+                  'Save Expense',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ])
           ])),
