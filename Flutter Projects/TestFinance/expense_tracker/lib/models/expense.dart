@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:expense_tracker/helpers/date_formatter.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat('dd/MM/yyyy');
@@ -32,6 +31,24 @@ class Expense {
 
   String get formattedDate {
     return formatter.format(date);
+  }
+
+  factory Expense.fromJson(Map<String, dynamic> json) {
+    return Expense(
+      strTitle: json['strTitle'],
+      dAmount: json['dAmount'],
+      date: DateTime.parse(json['date']),
+      enumCategory: Category.values[json['enumCategory']],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'strTitle': strTitle,
+      'dAmount': dAmount,
+      'date': date.toIso8601String(),
+      'enumCategory': enumCategory.index,
+    };
   }
 }
 
